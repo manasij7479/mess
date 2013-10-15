@@ -2,6 +2,8 @@
 #define MESS_HPP
 #include<map>
 #include<string>
+#include<set>
+#include "message.hpp"
 namespace Mess
 {
 	class Peer
@@ -13,7 +15,7 @@ namespace Mess
 	private:
 		std::string user;
 		std::map<std::string,std::string> userip;
-		
+		std::set<Message> text;
 	};
 }
 #endif
