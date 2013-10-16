@@ -7,9 +7,20 @@ namespace Mess
 {
 	void Peer::sync(std::string ip)
 	{
-		throw std::runtime_error("Sync Not implemented yet.");
+		Protocol::SendInfo(user,addr,ip);
+		Protocol::RequestInfo(user,ip);
 	}
-	
+	void Peer::sendUserData(std::string ip)
+	{
+		m.lock();
+		auto copy=userip;
+		m.unlock();
+		for (auto u:copy)
+		{
+			Protocol::SendInfo(u.first,u.second,ip);
+		}
+	}
+
 	int Peer::operator()()
 	{
 		std::thread listener(Protocol::Listen,std::ref(*this));
@@ -18,15 +29,24 @@ namespace Mess
 		{
 			std::cout<<"mess# ";
 			std::string input;
-			std::getline(std::cin,input);
-			Protocol::SendMessage(user,input,userip.begin()->second);
+			if(!std::getline(std::cin,input))
+			{
+				quit();
+				break;
+			}
+			for(auto x:userip)
+			{
+				Protocol::SendMessage(user,input,x.second);
+			}
 			m.lock();
-			for (auto m:messages)
+			auto copy =messages;
+			m.unlock();
+			for (auto m:copy)
 			{
 				std::cout<<m.user()<<" : "<<m.text()<<" \n";
 			}
-			m.unlock();
 		}
+		listener.join();
 		return 0;
 	}
 	bool Peer::active()

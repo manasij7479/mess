@@ -18,9 +18,9 @@ namespace Mess
 		else
 		{
 			std::string n;			
-			std::getline(in,n);
 			std::getline(in,user_);
 			std::getline(in,text_);
+			std::getline(in,n);
 			ord=o;
 			ack_=std::stoi(n);
 		}

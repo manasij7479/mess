@@ -15,6 +15,7 @@ namespace Mess
 			userip[u]=addr;
 		};
 		void sync(std::string ip);
+		void sendUserData(std::string ip);
 		int operator()();
 		bool active();
 		void quit();
