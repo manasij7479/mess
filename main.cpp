@@ -21,18 +21,21 @@
 // }
 int main()
 {
-	Mess::Peer p("manasij7479");
-	std::thread t(Mess::Protocol::Listen,std::ref(p));
-	p.newUser("foo","192.168.2.134");
-	std::this_thread::sleep_for(std::chrono::milliseconds(500));
-	Mess::Protocol::SendMessage("foo","Hello World","192.168.2.134");
+	Mess::Peer p("manasij7479","192.168.2.134");
 	
-	for(auto m:p.copyMessages())
-	{
-		std::cout<<m.user()<<" : "<<m.text()<<std::endl;
-	}
-	
-	p.quit();
-	t.join();
+// 	std::thread t(Mess::Protocol::Listen,std::ref(p));
+// 	
+// 	p.newUser("foo","115.187.43.148");
+// 	std::this_thread::sleep_for(std::chrono::milliseconds(500));
+// 	Mess::Protocol::SendMessage("foo","Hello World","115.187.43.148");
+// 	
+// 	for(auto m:p.copyMessages())
+// 	{
+// 		std::cout<<m.user()<<" : "<<m.text()<<std::endl;
+// 	}
+// 	
+// 	p.quit();
+// 	t.join();
+	return p();
 	
 }

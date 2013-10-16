@@ -10,9 +10,9 @@ namespace Mess
 	class Peer
 	{
 	public:
-		Peer(std::string u):user(u),act(true)
+		Peer(std::string u,std::string a):user(u),addr(a),act(true)
 		{
-			userip[u]="127.0.0.1";
+			userip[u]=addr;
 		};
 		void sync(std::string ip);
 		int operator()();
@@ -31,6 +31,7 @@ namespace Mess
 		}
 	private:
 		std::string user;
+		std::string addr;
 		std::map<std::string,std::string> userip;
 		std::set<Message> messages;
 		std::mutex m;
